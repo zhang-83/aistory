@@ -3,88 +3,59 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GuardBot - AI智能安防机器人</title>
+  <title>GuardBot - 智能安防机器人</title>
   <style>
     :root {
-      /* 主色调 - 更柔和的色系 */
-      --primary: #6366F1;
-      --primary-light: #EEF2FF;
-      --primary-medium: #C7D2FE;
+      /* 主色调 */
+      --primary: #8C52FF;
+      --primary-dark: #6E3AD9;
+      --primary-light: #A875FF;
       
-      /* 功能色调 */
-      --success: #10B981;
-      --success-light: #ECFDF5;
-      --warning: #F59E0B;
-      --warning-light: #FFFBEB;
-      --danger: #EF4444;
-      --danger-light: #FEF2F2;
-      --info: #3B82F6;
-      --info-light: #EFF6FF;
-      --purple: #8B5CF6;
-      --purple-light: #F5F3FF;
-      --pink: #EC4899;
-      --pink-light: #FDF2F8;
+      /* 状态色调 */
+      --status-green: #00FF85;
+      --status-red: #FF2E93;
+      --status-yellow: #FFDE59;
+      --status-blue: #00E9FF;
       
-      /* 中性色 */
-      --gray-50: #F9FAFB;
-      --gray-100: #F3F4F6;
-      --gray-200: #E5E7EB;
-      --gray-300: #D1D5DB;
-      --gray-400: #9CA3AF;
-      --gray-500: #6B7280;
-      --gray-600: #4B5563;
-      --gray-700: #374151;
-      --gray-800: #1F2937;
-      --gray-900: #111827;
+      /* 暗色背景 */
+      --bg-dark: #121212;
+      --bg-card: #1E1E1E;
+      --bg-card-hover: #252525;
       
-      /* 背景色 */
-      --bg-white: #FFFFFF;
-      --bg-light: #F9FAFB;
-      --bg-glass: rgba(255, 255, 255, 0.7);
-      --bg-glass-dark: rgba(0, 0, 0, 0.3);
+      /* 文本颜色 */
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.7);
+      --text-tertiary: rgba(255, 255, 255, 0.5);
       
-      /* 阴影 */
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-      --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
-      --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      /* 边框与阴影 */
+      --border-light: rgba(255, 255, 255, 0.1);
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.25);
+      --shadow-neon: 0 0 15px rgba(140, 82, 255, 0.5);
       
       /* 间距 */
-      --space-2: 2px;
-      --space-4: 4px;
-      --space-8: 8px;
-      --space-12: 12px;
-      --space-16: 16px;
-      --space-20: 20px;
-      --space-24: 24px;
-      --space-32: 32px;
-      --space-40: 40px;
+      --space-xs: 4px;
+      --space-sm: 8px;
+      --space-md: 16px;
+      --space-lg: 24px;
+      --space-xl: 32px;
       
       /* 圆角 */
-      --radius-sm: 0.5rem;
-      --radius-md: 0.75rem;
-      --radius-lg: 1rem;
-      --radius-xl: 1.5rem;
-      --radius-2xl: 2rem;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
       --radius-full: 9999px;
-      
-      /* 动画 */
-      --transition-base: all 0.3s ease;
-      --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Outfit', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
     }
     
     body {
-      background: var(--bg-light);
-      color: var(--gray-900);
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
@@ -92,65 +63,39 @@
     .app-container {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--space-32);
+      gap: var(--space-xl);
       justify-content: center;
-      padding: var(--space-24);
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+      padding: var(--space-md);
     }
     
     .screen {
-      width: 375px;
-      height: 812px;
-      background: var(--bg-white);
-      border-radius: var(--radius-2xl);
+      width: 360px;
+      height: 720px;
+      background: var(--bg-dark);
+      border-radius: var(--radius-lg);
       overflow: hidden;
       position: relative;
-      box-shadow: var(--shadow-xl);
-    }    .header {
-      padding: var(--space-20);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+    }
+    
+    .header {
+      padding: var(--space-md);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: var(--bg-white);
-      border-bottom: 1px solid var(--gray-100);
-    }
-    
-    .header-content {
-      display: flex;
-      align-items: center;
-      gap: var(--space-12);
-    }
-    
-    .robot-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-full);
-      background: var(--primary-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-    }
-    
-    .header-text {
-      line-height: 1.2;
+      position: relative;
+      z-index: 10;
     }
     
     .header-title {
-      font-size: 1.25rem;
+      font-size: 20px;
       font-weight: 600;
-      color: var(--gray-900);
     }
     
-    .header-subtitle {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-    }
-    
-    .header-actions {
+    .header-action {
       display: flex;
-      gap: var(--space-8);
+      gap: var(--space-sm);
     }
     
     .icon-button {
@@ -160,29 +105,29 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: var(--gray-50);
-      color: var(--gray-700);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
       border: none;
       cursor: pointer;
-      transition: var(--transition-base);
+      transition: all 0.2s ease;
     }
     
     .icon-button:hover {
-      background: var(--gray-100);
-      transform: translateY(-1px);
+      background: rgba(255, 255, 255, 0.2);
     }
     
     .content {
-      height: calc(100% - 81px);
+      height: calc(100% - 80px);
       overflow-y: auto;
-      background: var(--bg-light);
+      padding: 0 var(--space-md);
     }
     
     .live-feed {
-      height: 45%;
+      margin: -16px -16px 0;
+      height: 65%;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, var(--primary-light), var(--primary-medium));
+      background: linear-gradient(to bottom, var(--primary-dark), var(--bg-dark));
     }
     
     .live-feed video {
@@ -194,300 +139,136 @@
     .live-overlay {
       position: absolute;
       inset: 0;
-      padding: var(--space-20);
       background: linear-gradient(to bottom, 
-        rgba(0,0,0,0.2) 0%, 
+        rgba(0,0,0,0.4) 0%, 
         rgba(0,0,0,0) 20%,
         rgba(0,0,0,0) 80%,
-        rgba(0,0,0,0.3) 100%);
+        rgba(0,0,0,0.6) 100%);
+      padding: var(--space-md);
     }
     
     .status-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: var(--space-16);
-    }
-    
-    .status-group {
-      display: flex;
-      gap: var(--space-8);
+      margin-bottom: var(--space-md);
     }
     
     .status-pill {
-      padding: var(--space-4) var(--space-12);
+      background: rgba(0, 0, 0, 0.6);
+      padding: var(--space-xs) var(--space-sm);
       border-radius: var(--radius-full);
-      font-size: 0.75rem;
-      font-weight: 500;
+      font-size: 12px;
       display: flex;
       align-items: center;
-      gap: var(--space-4);
-      background: var(--bg-glass);
-      color: var(--gray-800);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      gap: var(--space-xs);
     }
     
-    .status-pill .material-icons {
-      font-size: 14px;
+    .battery-status {
+      color: var(--status-green);
     }
     
-    .section {
-      padding: var(--space-20);
+    .detection-badge {
+      position: absolute;
+      top: 20%;
+      left: var(--space-md);
+      background: var(--status-red);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      animation: pulse 1.5s infinite;
+      box-shadow: 0 0 20px rgba(255, 46, 147, 0.3);
     }
     
-    .section-header {
+    .quick-controls {
+      position: absolute;
+      bottom: var(--space-md);
+      left: var(--space-md);
+      right: var(--space-md);
       display: flex;
       justify-content: space-between;
+    }
+    
+    .control-button {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
       align-items: center;
-      margin-bottom: var(--space-16);
+      justify-content: center;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+    }
+    
+    .control-button:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+    
+    .control-button.recording {
+      background: var(--status-red);
+      animation: pulse 1.5s infinite;
+    }
+    
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--border-light);
     }
     
     .section-title {
-      font-size: 1.125rem;
+      font-size: 18px;
       font-weight: 600;
-      color: var(--gray-900);
+      margin: var(--space-lg) 0 var(--space-md);
       display: flex;
       align-items: center;
-      gap: var(--space-8);
+      gap: var(--space-sm);
     }
     
-    .section-title .material-icons {
-      color: var(--primary);
-    }
-    
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-12);
-      margin-bottom: var(--space-20);
-    }
-    
-    .feature-card {
-      background: var(--bg-white);
-      border-radius: var(--radius-lg);
-      padding: var(--space-16);
-      border: 1px solid var(--gray-100);
-      transition: var(--transition-base);
-    }
-    
-    .feature-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-md);
-    }
-    
-    .feature-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-lg);
+    .event-card {
       display: flex;
+      gap: var(--space-md);
       align-items: center;
-      justify-content: center;
-      margin: 0 auto var(--space-12);
-      transition: var(--transition-base);
     }
     
-    .feature-title {
-      font-weight: 600;
-      color: var(--gray-900);
-      text-align: center;
-      margin-bottom: var(--space-4);
+    .event-thumbnail {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
     }
     
-    .feature-desc {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-      text-align: center;
-    }    .status-cards {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-12);
-    }
-    
-    .status-card {
-      background: var(--bg-white);
-      border-radius: var(--radius-lg);
-      padding: var(--space-16);
-      border: 1px solid var(--gray-100);
-    }
-    
-    .status-header {
-      display: flex;
-      align-items: center;
-      gap: var(--space-12);
-      margin-bottom: var(--space-12);
-    }
-    
-    .status-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .status-info {
+    .event-info {
       flex: 1;
     }
     
-    .status-title {
-      font-weight: 600;
-      color: var(--gray-900);
+    .event-time {
+      color: var(--text-tertiary);
+      font-size: 12px;
+      margin-top: var(--space-xs);
     }
     
-    .status-time {
-      font-size: 0.75rem;
-      color: var(--gray-500);
-    }
-    
-    .activity-timeline {
-      padding-left: var(--space-8);
-      border-left: 2px solid var(--gray-100);
-    }
-    
-    .timeline-item {
-      position: relative;
-      padding-left: var(--space-20);
-      margin-bottom: var(--space-12);
-    }
-    
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -5px;
-      top: 6px;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--primary);
-    }
-    
-    .timeline-time {
-      font-size: 0.75rem;
-      color: var(--gray-500);
-      margin-bottom: var(--space-2);
-    }
-    
-    .timeline-title {
-      font-weight: 500;
-      color: var(--gray-900);
-      margin-bottom: var(--space-2);
-    }
-    
-    .timeline-desc {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-    }
-    
-    .pet-status {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-12);
-    }
-    
-    .status-item {
-      text-align: center;
-    }
-    
-    .status-item .material-icons {
-      font-size: 24px;
-      color: var(--primary);
-      margin-bottom: var(--space-4);
-    }
-    
-    .status-label {
-      font-size: 0.75rem;
-      color: var(--gray-500);
-      margin-bottom: var(--space-2);
-    }
-    
-    .status-value {
-      font-weight: 600;
-      color: var(--gray-900);
-    }
-    
-    .reminder-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-12);
-    }
-    
-    .reminder-card {
-      display: flex;
+    .tag {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+      padding: var(--space-xs) var(--space-sm);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      display: inline-flex;
       align-items: center;
-      gap: var(--space-12);
-      background: var(--bg-white);
-      border-radius: var(--radius-lg);
-      padding: var(--space-12);
-      border: 1px solid var(--gray-100);
+      gap: var(--space-xs);
     }
     
-    .reminder-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .reminder-content {
-      flex: 1;
-    }
-    
-    .reminder-title {
-      font-weight: 600;
-      color: var(--gray-900);
-    }
-    
-    .reminder-desc {
-      font-size: 0.875rem;
-      color: var(--gray-500);
-    }
-    
-    .reminder-action {
-      color: var(--primary);
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    
-    .environment-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-12);
-    }
-    
-    .env-card {
-      background: var(--bg-white);
-      border-radius: var(--radius-lg);
-      padding: var(--space-16);
-      text-align: center;
-      border: 1px solid var(--gray-100);
-    }
-    
-    .env-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto var(--space-8);
-    }
-    
-    .env-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gray-900);
-      margin-bottom: var(--space-4);
-    }
-    
-    .env-label {
-      font-size: 0.875rem;
-      color: var(--gray-500);
+    .tag.alert {
+      background: rgba(255, 46, 147, 0.2);
+      color: var(--status-red);
     }
     
     @keyframes pulse {
@@ -504,34 +285,28 @@
         opacity: 1;
       }
     }
-  </style>  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="app-container">
+  <!-- 主页/实时监控 -->
   <div class="screen">
-    <header class="header">
-      <div class="header-content">
-        <div class="robot-avatar">
-          <span class="material-icons">smart_toy</span>
-        </div>
-        <div class="header-text">
-          <h1 class="header-title">GuardBot AI</h1>
-          <div class="header-subtitle">智能看护中</div>
-        </div>
-      </div>
-      <div class="header-actions">
+    <div class="header">
+      <div class="header-title">客厅机器人</div>
+      <div class="header-action">
         <button class="icon-button">
           <span class="material-icons">notifications</span>
         </button>
         <button class="icon-button">
-          <span class="material-icons">settings</span>
+          <span class="material-icons">more_vert</span>
         </button>
       </div>
-    </header>
+    </div>
     
-    <main class="content">
+    <div class="content">
       <div class="live-feed">
         <video autoplay muted loop>
           <source src="live-feed.mp4" type="video/mp4">
@@ -539,177 +314,110 @@
         
         <div class="live-overlay">
           <div class="status-bar">
-            <div class="status-group">
-              <div class="status-pill">
-                <span class="material-icons" style="color: var(--success);">battery_charging_full</span>
+            <div style="display: flex; gap: var(--space-sm);">
+              <div class="status-pill battery-status">
+                <span class="material-icons" style="font-size: 14px;">battery_charging_full</span>
                 85%
               </div>
               <div class="status-pill">
-                <span class="material-icons" style="color: var(--info);">wifi</span>
+                <span class="material-icons" style="font-size: 14px;">wifi</span>
                 强
               </div>
             </div>
             <div class="status-pill">
-              <span class="material-icons" style="color: var(--success);">fiber_manual_record</span>
+              <span class="material-icons" style="font-size: 14px;">fiber_manual_record</span>
               实时
             </div>
+          </div>
+          
+          <div class="detection-badge">
+            <span class="material-icons">warning</span>
+            检测到移动物体
+          </div>
+          
+          <div class="quick-controls">
+            <button class="control-button">
+              <span class="material-icons">photo_camera</span>
+            </button>
+            <button class="control-button recording">
+              <span class="material-icons">videocam</span>
+            </button>
+            <button class="control-button">
+              <span class="material-icons">volume_up</span>
+            </button>
+            <button class="control-button">
+              <span class="material-icons">mic</span>
+            </button>
+            <button class="control-button">
+              <span class="material-icons">settings</span>
+            </button>
           </div>
         </div>
       </div>
       
-      <!-- 智能看护 -->
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">
-            <span class="material-icons">auto_awesome</span>
-            智能看护
-          </h2>
-        </div>
-        
-        <div class="features-grid">
-          <div class="feature-card">
-            <div class="feature-icon" style="background: var(--pink-light);">
-              <span class="material-icons" style="color: var(--pink);">child_care</span>
+      <div class="section-title">
+        <span class="material-icons">notifications_active</span>
+        最近事件
+      </div>
+      
+      <div class="card">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1585128719715-46776b56a0d1" class="event-thumbnail">
+          <div class="event-info">
+            <div style="display: flex; justify-content: space-between;">
+              <div style="font-weight: 500;">检测到人员活动</div>
+              <span class="tag alert">
+                <span class="material-icons" style="font-size: 14px;">person</span>
+                人员
+              </span>
             </div>
-            <div class="feature-title">儿童看护</div>
-            <div class="feature-desc">活动正常</div>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon" style="background: var(--purple-light);">
-              <span class="material-icons" style="color: var(--purple);">pets</span>
-            </div>
-            <div class="feature-title">宠物监测</div>
-            <div class="feature-desc">状态良好</div>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon" style="background: var(--info-light);">
-              <span class="material-icons" style="color: var(--info);">graphic_eq</span>
-            </div>
-            <div class="feature-title">声音监测</div>
-            <div class="feature-desc">正常范围</div>
-          </div>
-          
-          <div class="feature-card">
-            <div class="feature-icon" style="background: var(--warning-light);">
-              <span class="material-icons" style="color: var(--warning);">psychology</span>
-            </div>
-            <div class="feature-title">情绪分析</div>
-            <div class="feature-desc">情绪愉悦</div>
+            <div class="event-time">2分钟前 · 客厅</div>
           </div>
         </div>
-      </section>
-
-      <!-- 实时状态 -->
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">
-            <span class="material-icons">monitoring</span>
-            实时状态
-          </h2>
-        </div>
-
-        <div class="status-cards">
-          <div class="status-card">
-            <div class="status-header">
-              <div class="status-icon" style="background: var(--pink-light);">
-                <span class="material-icons" style="color: var(--pink);">child_care</span>
-              </div>
-              <div class="status-info">
-                <div class="status-title">小明的活动记录</div>
-                <div class="status-time">最近更新: 2分钟前</div>
-              </div>
+      </div>
+      
+      <div class="card">
+        <div class="event-card">
+          <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba" class="event-thumbnail">
+          <div class="event-info">
+            <div style="display: flex; justify-content: space-between;">
+              <div style="font-weight: 500;">检测到宠物活动</div>
+              <span class="tag">
+                <span class="material-icons" style="font-size: 14px;">pets</span>
+                宠物
+              </span>
             </div>
-            <div class="activity-timeline">
-              <div class="timeline-item">
-                <div class="timeline-time">14:30</div>
-                <div class="timeline-title">在客厅玩耍</div>
-                <div class="timeline-desc">活动正常，情绪愉悦</div>
-              </div>
-              <div class="timeline-item">
-                <div class="timeline-time">14:15</div>
-                <div class="timeline-title">午睡结束</div>
-                <div class="timeline-desc">睡眠质量良好</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="status-card">
-            <div class="status-header">
-              <div class="status-icon" style="background: var(--purple-light);">
-                <span class="material-icons" style="color: var(--purple);">pets</span>
-              </div>
-              <div class="status-info">
-                <div class="status-title">宠物状态</div>
-                <div class="status-time">最近更新: 5分钟前</div>
-              </div>
-            </div>
-            <div class="pet-status">
-              <div class="status-item">
-                <span class="material-icons">directions_run</span>
-                <div class="status-label">活动量</div>
-                <div class="status-value">正常</div>
-              </div>
-              <div class="status-item">
-                <span class="material-icons">water_drop</span>
-                <div class="status-label">饮水量</div>
-                <div class="status-value">充足</div>
-              </div>
-              <div class="status-item">
-                <span class="material-icons">mood</span>
-                <div class="status-label">状态</div>
-                <div class="status-value">良好</div>
-              </div>
-            </div>
+            <div class="event-time">10分钟前 · 厨房</div>
           </div>
         </div>
-      </section>
-
-      <!-- 环境监测 -->
-      <section class="section">
-        <div class="section-header">
-          <h2 class="section-title">
-            <span class="material-icons">thermostat</span>
-            环境监测
-          </h2>
-        </div>
-
-        <div class="environment-grid">
-          <div class="env-card">
-            <div class="env-icon" style="background: var(--success-light);">
-              <span class="material-icons" style="color: var(--success);">thermostat</span>
-            </div>
-            <div class="env-value">26°C</div>
-            <div class="env-label">温度</div>
+      </div>
+      
+      <div class="section-title">
+        <span class="material-icons">analytics</span>
+        今日统计
+      </div>
+      
+      <div class="card">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md);">
+          <div>
+            <div style="color: var(--text-tertiary);">人员活动</div>
+            <div style="font-size: 24px; font-weight: 600; color: var(--primary);">12</div>
           </div>
-
-          <div class="env-card">
-            <div class="env-icon" style="background: var(--info-light);">
-              <span class="material-icons" style="color: var(--info);">water_drop</span>
-            </div>
-            <div class="env-value">55%</div>
-            <div class="env-label">湿度</div>
+          <div>
+            <div style="color: var(--text-tertiary);">宠物活动</div>
+            <div style="font-size: 24px; font-weight: 600; color: var(--status-blue);">8</div>
           </div>
-
-          <div class="env-card">
-            <div class="env-icon" style="background: var(--success-light);">
-              <span class="material-icons" style="color: var(--success);">air</span>
-            </div>
-            <div class="env-value">优</div>
-            <div class="env-label">空气质量</div>
+          <div>
+            <div style="color: var(--text-tertiary);">警报次数</div>
+            <div style="font-size: 24px; font-weight: 600; color: var(--status-red);">2</div>
           </div>
-
-          <div class="env-card">
-            <div class="env-icon" style="background: var(--warning-light);">
-              <span class="material-icons" style="color: var(--warning);">light_mode</span>
-            </div>
-            <div class="env-value">300lx</div>
-            <div class="env-label">光照</div>
+          <div>
+            <div style="color: var(--text-tertiary);">巡逻次数</div>
+            <div style="font-size: 24px; font-weight: 600; color: var(--status-yellow);">24</div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   </div>
 </div>
 
